@@ -57,6 +57,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             containerLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // todo add phone number field for starter (not sure how to find this yet)
                     ConversationActivity.start(context, chat.getGuid());
                 }
             });
