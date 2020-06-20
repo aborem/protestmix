@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aborem.protestmixv1.Chat;
+import com.aborem.protestmixv1.models.Chat;
 import com.aborem.protestmixv1.ConversationActivity;
 import com.aborem.protestmixv1.R;
 
@@ -53,12 +53,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
 
         public void bind(final Chat chat) {
-            chatNameTextView.setText(chat.getName());
+            chatNameTextView.setText(chat.getPhoneNumber());
             containerLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // todo add phone number field for starter (not sure how to find this yet)
-                    ConversationActivity.start(context, chat.getGuid());
+                    ConversationActivity.start(context, chat.getGuid(), chat.getPhoneNumber());
                 }
             });
         }

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.aborem.protestmixv1.adapters.ChatAdapter;
+import com.aborem.protestmixv1.models.Chat;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,15 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ca993e5-08d4-48a1-bfa3-876cb4fb2ca2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/SmsMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/SmsBroadcastReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/UserWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/ConversationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/ConversationActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/MessageListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/MessageListActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/adapters/ChatAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/adapters/ChatAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/SmsMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/SmsMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,10 +145,14 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="245" y="190" key="#PSD/0.23.1440.877@0.23.1440.877" timestamp="1592440922709" />
-    <state x="533" y="168" key="#com.intellij.ide.util.MemberChooser" timestamp="1592520646699">
+    <state x="533" y="168" key="#com.intellij.ide.util.MemberChooser" timestamp="1592608581037">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="533" y="168" key="#com.intellij.ide.util.MemberChooser/0.23.1440.877@0.23.1440.877" timestamp="1592520646699" />
+    <state x="533" y="168" key="#com.intellij.ide.util.MemberChooser/0.23.1440.877@0.23.1440.877" timestamp="1592608581037" />
+    <state x="482" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1592611142852">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="482" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.877@0.23.1440.877" timestamp="1592611142852" />
     <state x="308" y="213" key="AndroidCreateResourceDirectoryDialog" timestamp="1592439739554">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

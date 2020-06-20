@@ -24,7 +24,7 @@ public class MessageWrapper implements IMessage {
 
     @Override
     public IUser getUser() {
-        return null;
+        return new UserWrapper(message.getPhoneNumber());
     }
 
     @Override

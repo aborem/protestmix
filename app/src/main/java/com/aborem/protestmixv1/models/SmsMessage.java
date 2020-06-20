@@ -1,18 +1,18 @@
 package com.aborem.protestmixv1.models;
 
-import java.util.Date;
+import java.util.UUID;
 
 public class SmsMessage {
     private String phoneNumber;
     private String messageId;
     private String content;
-    private Date sentAt;
+    private int sentAtMs;
 
-    public SmsMessage(String phoneNumber, String messageId, String content, Date sentAt) {
+    public SmsMessage(String phoneNumber, String content, int sentAtMs) {
         this.content = content;
         this.phoneNumber = phoneNumber;
-        this.messageId = messageId;
-        this.sentAt = sentAt;
+        this.messageId = UUID.randomUUID().toString();
+        this.sentAtMs = sentAtMs;
     }
 
     public String getContent() {
@@ -27,7 +27,7 @@ public class SmsMessage {
         return phoneNumber;
     }
 
-    public Date getSentAt() {
-        return sentAt;
+    public int getSentAt() {
+        return sentAtMs;
     }
 }
