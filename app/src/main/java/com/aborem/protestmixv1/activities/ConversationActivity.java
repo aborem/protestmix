@@ -1,4 +1,4 @@
-package com.aborem.protestmixv1;
+package com.aborem.protestmixv1.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +15,17 @@ import android.telephony.SmsManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.aborem.protestmixv1.Constants;
+import com.aborem.protestmixv1.R;
 import com.aborem.protestmixv1.models.MessageWrapper;
-import com.aborem.protestmixv1.models.SmsMessage;
+import com.aborem.protestmixv1.models.MessageModel;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity {
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
@@ -54,7 +54,6 @@ public class ConversationActivity extends AppCompatActivity {
         }
 
         initViews();
-        interceptMessageListener();
     }
 
     private void initViews() {
@@ -63,7 +62,7 @@ public class ConversationActivity extends AppCompatActivity {
         inputView.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(CharSequence input) {
-                sendMessage(new SmsMessage(phoneNumber, input.toString(), (int) new Date().getTime()));
+                sendMessage(new MessageModel(phoneNumber, input.toString(), (int) new Date().getTime()));
                 return true;
             }
         });
@@ -99,22 +98,18 @@ public class ConversationActivity extends AppCompatActivity {
         }
     }
 
-    private void sendMessage(SmsMessage toSend) {
+    private void sendMessage(MessageModel toSend) {
         SmsManager manager = SmsManager.getDefault();
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             getPermissionToReadSMS();
         } else {
-            manager.sendTextMessage(phoneNumber, null, toSend.getContent(), null, null);
+            manager.sendTextMessage(phoneNumber, null, toSend.getMessageContent(), null, null);
             Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
             addMessage(toSend);
         }
     }
 
-    private void addMessage(SmsMessage message) {
+    private void addMessage(MessageModel message) {
         messagesListAdapter.addToStart(new MessageWrapper(message), true);
-    }
-
-    private void interceptMessageListener() {
-
     }
 }

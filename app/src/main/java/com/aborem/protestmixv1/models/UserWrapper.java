@@ -12,7 +12,6 @@ public class UserWrapper implements IUser {
         this.phoneNumber = phoneNumber;
     }
 
-
     @Override
     public String getId() {
         return userId;

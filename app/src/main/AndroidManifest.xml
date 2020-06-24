@@ -13,13 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".models.SmsBroadcastReceiver" android:exported="true" >
+        <receiver android:name=".SmsBroadcastReceiver" android:exported="true" >
             <intent-filter android:priority="999" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        <activity android:name=".ConversationActivity" />
-        <activity android:name=".MessageListActivity" />
+        <activity android:name=".activities.ConversationActivity" />
+        <activity android:name=".activities.MessageListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

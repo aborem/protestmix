@@ -11,17 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aborem.protestmixv1.models.Chat;
-import com.aborem.protestmixv1.ConversationActivity;
+import com.aborem.protestmixv1.activities.ConversationActivity;
 import com.aborem.protestmixv1.R;
+import com.aborem.protestmixv1.models.ContactModel;
 
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
-    private List<Chat> chats;
+    private List<ContactModel> chats;
     private Context context;
 
-    public ChatAdapter(List<Chat> chats, Context context) {
+    public ChatAdapter(List<ContactModel> chats, Context context) {
         this.chats = chats;
         this.context = context;
     }
@@ -52,14 +53,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             containerLayout = itemView.findViewById(R.id.containerLayout);
         }
 
-        public void bind(final Chat chat) {
+        public void bind(final ContactModel chat) {
             chatNameTextView.setText(chat.getPhoneNumber());
-            containerLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // todo add phone number field for starter (not sure how to find this yet)
-                    ConversationActivity.start(context, chat.getGuid(), chat.getPhoneNumber());
-                }
+            containerLayout.setOnClickListener(view -> {
+                ConversationActivity.start(context, chat.getContactId(), chat.getPhoneNumber());
             });
         }
     }

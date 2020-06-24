@@ -6,9 +6,9 @@ import com.stfalcon.chatkit.commons.models.IUser;
 import java.util.Date;
 
 public class MessageWrapper implements IMessage {
-    private SmsMessage message;
+    private MessageModel message;
 
-    public MessageWrapper(SmsMessage message) {
+    public MessageWrapper(MessageModel message) {
         this.message = message;
     }
 
@@ -19,7 +19,7 @@ public class MessageWrapper implements IMessage {
 
     @Override
     public String getText() {
-        return message.getContent();
+        return message.getMessageContent();
     }
 
     @Override
