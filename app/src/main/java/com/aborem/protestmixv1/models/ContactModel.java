@@ -1,5 +1,6 @@
 package com.aborem.protestmixv1.models;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Entity(tableName = "contacts")
 public class ContactModel {
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "contact_id")
     private String contactId;
 
@@ -25,7 +27,15 @@ public class ContactModel {
         return phoneNumber;
     }
 
-    public String getContactId() {
+    public @NonNull String getContactId() {
         return contactId;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setContactId(@NonNull String contactId) {
+        this.contactId = contactId;
     }
 }

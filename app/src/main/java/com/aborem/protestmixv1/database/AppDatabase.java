@@ -2,9 +2,11 @@ package com.aborem.protestmixv1.database;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.aborem.protestmixv1.Constants;
 import com.aborem.protestmixv1.dao.ContactDao;
@@ -29,7 +31,16 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(
                     context.getApplicationContext(), AppDatabase.class, Constants.DB_NAME
-            ).fallbackToDestructiveMigration().build();
+            ).fallbackToDestructiveMigration().addCallback(new RoomDatabase.Callback() {
+                @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
+                    databaseWriteExecutor.execute(() ->
+                            instance.contactDao().
+                                    insertAll(new ContactModel("+18325609681"))
+                    );
+                }
+            }).build();
         }
         return instance;
     }

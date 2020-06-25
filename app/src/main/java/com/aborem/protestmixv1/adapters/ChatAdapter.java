@@ -1,10 +1,12 @@
 package com.aborem.protestmixv1.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +32,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ChatViewHolder(LayoutInflater.from(context).inflate(R.layout.chat_layout, parent, false));
+        return new ChatViewHolder(LayoutInflater.from(context).inflate(R.layout.conversation_item, parent, false));
     }
 
     @Override
@@ -43,19 +45,27 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         return chats.size();
     }
 
+    public void setChats(List<ContactModel> chats) {
+        this.chats = chats;
+        notifyDataSetChanged();
+    }
+
     class ChatViewHolder extends RecyclerView.ViewHolder {
-        TextView chatNameTextView;
-        LinearLayout containerLayout;
+        TextView textViewPhoneNumber;
+        TextView textViewUnreadMessages;
+        RelativeLayout cardViewRelativeLayout;
 
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
-            chatNameTextView = itemView.findViewById(R.id.chatNameTextView);
-            containerLayout = itemView.findViewById(R.id.containerLayout);
+            textViewPhoneNumber = itemView.findViewById(R.id.text_view_phone_number);
+            textViewUnreadMessages = itemView.findViewById(R.id.text_view_unread_messages);
+            cardViewRelativeLayout = itemView.findViewById(R.id.card_view_relative_layout);
         }
 
         public void bind(final ContactModel chat) {
-            chatNameTextView.setText(chat.getPhoneNumber());
-            containerLayout.setOnClickListener(view -> {
+            textViewPhoneNumber.setText(chat.getPhoneNumber());
+            textViewUnreadMessages.setText(""); // todo figure out how to get number of unread messages from this. Probably have to store that in the contacts table somehow
+            cardViewRelativeLayout.setOnClickListener(view -> {
                 ConversationActivity.start(context, chat.getContactId(), chat.getPhoneNumber());
             });
         }

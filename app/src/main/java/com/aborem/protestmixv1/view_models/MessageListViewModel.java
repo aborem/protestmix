@@ -32,4 +32,13 @@ public class MessageListViewModel extends AndroidViewModel {
     public LiveData<List<ContactModel>> getContacts() {
         return contacts;
     }
+
+    public boolean contactExists(String phoneNumber) {
+        for (ContactModel contact : getContacts().getValue()) {
+            if (contact.getPhoneNumber().equals(phoneNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

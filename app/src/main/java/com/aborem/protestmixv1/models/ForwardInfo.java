@@ -1,5 +1,6 @@
 package com.aborem.protestmixv1.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,6 +10,7 @@ import java.util.UUID;
 @Entity(tableName = "forward_info")
 public class ForwardInfo {
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "row_id")
     private String rowId;
 
@@ -30,5 +32,14 @@ public class ForwardInfo {
 
     public long getExpirationTimeMs() {
         return expirationTimeMs;
+    }
+
+    @NonNull
+    public String getRowId() {
+        return rowId;
+    }
+
+    public void setRowId(@NonNull String rowId) {
+        this.rowId = rowId;
     }
 }

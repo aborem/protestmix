@@ -29,6 +29,6 @@ public class MessageWrapper implements IMessage {
 
     @Override
     public Date getCreatedAt() {
-        return new Date(message.getSentAt() * 1000);
+        return new Date(message.getSentAtMs() * 1000);
     }
 }
