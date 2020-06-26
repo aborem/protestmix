@@ -19,7 +19,7 @@ import com.aborem.protestmixv1.models.MessageModel;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {MessageModel.class, ForwardInfo.class, ContactModel.class}, version = 1)
+@Database(entities = {MessageModel.class, ForwardInfo.class, ContactModel.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
 
@@ -31,16 +31,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(
                     context.getApplicationContext(), AppDatabase.class, Constants.DB_NAME
-            ).fallbackToDestructiveMigration().addCallback(new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-                    databaseWriteExecutor.execute(() ->
-                            instance.contactDao().
-                                    insertAll(new ContactModel("+18325609681"))
-                    );
-                }
-            }).build();
+            ).fallbackToDestructiveMigration().build();
         }
         return instance;
     }

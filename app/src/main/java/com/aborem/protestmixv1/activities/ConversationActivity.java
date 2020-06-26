@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,11 +31,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ConversationActivity extends AppCompatActivity {
+public class ConversationActivity extends AppCompatActivity implements LifecycleOwner {
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
     private String phoneNumber;
     private MessageListAdapter messagesListAdapter;
     private ConversationViewModel conversationViewModel;
+    private RecyclerView messageRecyclerView;
 
     public static void start(Context context, String chatId, String phoneNumber) {
         Intent starter = new Intent(context, ConversationActivity.class);
@@ -48,50 +50,39 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-            getPermissionToReadSMS();
-        }
+        getPermissionToReadSMS();
 
         Intent intent = getIntent();
         if (intent != null) {
             phoneNumber = intent.getStringExtra("phone_number");
         }
 
-        List<MessageWrapper> baseList = new ArrayList<>();
-        baseList.add(new MessageWrapper(new MessageModel(phoneNumber, "kjfehkfsw", new Date().getTime())));
+        messageRecyclerView = findViewById(R.id.recycler_message_list);
 
-        messagesListAdapter = new MessageListAdapter(this, baseList);
-        conversationViewModel = new ViewModelProvider(
-                this,
-                new ConversationViewModelFactory(getApplication(), phoneNumber)
-        ).get(ConversationViewModel.class);
+        ConversationViewModelFactory factory = new ConversationViewModelFactory(getApplication(), phoneNumber);
+        conversationViewModel = new ViewModelProvider(this, factory).get(ConversationViewModel.class);
+        conversationViewModel.getMessages().observe(this, messageModels ->
+                observeMessageLiveData(this, messageModels)
+        );
 
-        conversationViewModel.getMessages().observe(this, messageModels -> {
-            // todo figure out how not to repeat messages
-            for (MessageModel messageModel : messageModels) {
-                addMessages(messageModel);
-            }
-        });
-
-        RecyclerView messageRecyclerView = findViewById(R.id.recycler_message_list);
-        messageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        messageRecyclerView.setAdapter(messagesListAdapter);
+        // call for first time to prepopulate todo figure out if necessary
+//        List<MessageModel> prePopulatedMessages = conversationViewModel.getMessages().getValue();
+//        if (prePopulatedMessages != null) {
+//            observeMessageLiveData(this, prePopulatedMessages);
+//        }
 
         EditText textChatBox = findViewById(R.id.edit_text_chatbox);
         Button sendButton = findViewById(R.id.button_chatbox_send);
-
         sendButton.setOnClickListener(view -> {
-            sendMessage(new MessageModel(phoneNumber, textChatBox.getText().toString(), new Date().getTime()));
-            Log.d("HFKFLSKDFKSJHKFJHDSKHSK", "hello clicked and I felt it!");
+            sendMessage(new MessageModel(phoneNumber, textChatBox.getText().toString(), new Date().getTime(), true));
+            textChatBox.setText("");
         });
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == READ_SMS_PERMISSIONS_REQUEST) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Read SMS permission granted", Toast.LENGTH_SHORT).show();
-            } else {
+            if (!(grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Toast.makeText(this, "Read SMS permission denied", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -99,8 +90,11 @@ public class ConversationActivity extends AppCompatActivity {
         }
     }
 
-    public void getPermissionToReadSMS() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+    /**
+     * Requests read sms permissions from user and displays Toast
+     */
+    private void getPermissionToReadSMS() {
+        if (!hasReadSMSPermissions()) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
                 Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
             }
@@ -108,19 +102,49 @@ public class ConversationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if application has permissions to read SMS by checking ContextCompat
+     * @return true if has permissions, false otherwise
+     */
+    private boolean hasReadSMSPermissions() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Checks if permissions were enabled by user and sends sms, adds message to view model and
+     * to messageListAdapter
+     * @param toSend the message to send
+     */
     private void sendMessage(MessageModel toSend) {
         SmsManager manager = SmsManager.getDefault();
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+        if (!hasReadSMSPermissions()) {
+            Log.d("sendMessage", "no permissions!");
             getPermissionToReadSMS();
         } else {
             manager.sendTextMessage(phoneNumber, null, toSend.getMessageContent(), null, null);
-            Toast.makeText(this, "Message sent!", Toast.LENGTH_SHORT).show();
+            Log.d("sendMessage", "message being sent!");
             conversationViewModel.insertAll(toSend);
-            addMessages(toSend);
         }
     }
 
-    private void addMessages(MessageModel message) {
-        messagesListAdapter.addItem(new MessageWrapper(message));
+    /**
+     * Method called when changes are made to conversationViewModel with new messages
+     *
+     * @param context the context gleaned by the instance of ConversationActivity
+     * @param messageModels the updated list of MessageModel objects (database)
+     */
+    private void observeMessageLiveData(Context context, List<MessageModel> messageModels) {
+        Log.d("OBSERVED, new length", String.valueOf(messageModels.size()));
+        List<MessageWrapper> messageWrapperList = new ArrayList<>();
+        for (MessageModel messageModel : messageModels) {
+            messageWrapperList.add(new MessageWrapper(messageModel));
+        }
+        messagesListAdapter = new MessageListAdapter(context, messageWrapperList);
+        messageRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        messageRecyclerView.setAdapter(messagesListAdapter);
+        if (messageModels.size() > 0) {
+            messageRecyclerView.smoothScrollToPosition(messageModels.size()-1);
+        }
     }
 }

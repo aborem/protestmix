@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
             contactRepository.deleteAll();
 
             contactRepository.insert(new ContactModel("+18325609681"));
-            messageRepository.insertAll(new MessageModel("+18325609681", "hellozinhos", SystemClock.currentThreadTimeMillis()));
             transitionMessageListScreen();
         });
     }

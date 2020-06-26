@@ -66,7 +66,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                 MessageModel newMessage = new MessageModel(
                         smsMessage.getOriginatingAddress(),
                         smsMessage.getMessageBody(),
-                        System.currentTimeMillis()
+                        System.currentTimeMillis(),
+                        false
                 );
                 appDb.messageDao().insertAll(newMessage);
             }

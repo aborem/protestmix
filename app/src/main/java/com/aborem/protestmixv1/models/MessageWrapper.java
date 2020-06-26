@@ -24,4 +24,8 @@ public class MessageWrapper {
     public Date getCreatedAt() {
         return new Date(message.getSentAtMs() * 1000);
     }
+
+    public boolean isSentByUser() {
+        return message.isSentByUser();
+    }
 }

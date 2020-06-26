@@ -16,15 +16,13 @@ import com.aborem.protestmixv1.models.MessageWrapper;
 
 import java.util.List;
 
-public class MessageListAdapter extends RecyclerView.Adapter {
+public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private Context context;
     private List<MessageWrapper> messageWrapperList;
 
     public MessageListAdapter(Context context, List<MessageWrapper> messageWrappers) {
-        this.context = context;
         this.messageWrapperList = messageWrappers;
     }
 
@@ -58,7 +56,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         MessageWrapper messageWrapper = messageWrapperList.get(position);
-        if (messageWrapper.getUser().getName().equals(Constants.SELF_NAME)) {
+        if (messageWrapper.isSentByUser()) {
             return VIEW_TYPE_MESSAGE_SENT;
         }
         return VIEW_TYPE_MESSAGE_RECEIVED;
@@ -69,13 +67,16 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         return messageWrapperList.size();
     }
 
+    /**
+     * Adds MessageWrapper to messageWrapperList and notifies of data set change
+     * @param messageWrapper the newly added message
+     */
     public void addItem(MessageWrapper messageWrapper) {
         messageWrapperList.add(messageWrapper);
         notifyDataSetChanged();
-
     }
 
-    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
+    static class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
         ReceivedMessageHolder(@NonNull View itemView) {

@@ -11,14 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ca993e5-08d4-48a1-bfa3-876cb4fb2ca2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/adapters/MessageListAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/view_models/ConversationViewModelFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_green.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_orange.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_message_received.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_message_sent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/schemas/com.aborem.protestmixv1.database.AppDatabase/2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-v21/activity_conversation.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,30 +23,23 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_stfalcon_chatkit_0_3_3_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/com.aborem.protestmixv1.database.AppDatabase/1.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/com.aborem.protestmixv1.database.AppDatabase/1.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/SmsBroadcastReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/SmsBroadcastReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/activities/ConversationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/activities/ConversationActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/dao/ContactDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/dao/ContactDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/dao/MessageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/dao/MessageDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/adapters/MessageListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/adapters/MessageListAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/database/AppDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/database/AppDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/MessageWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/UserWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/models/UserWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/repositories/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/repositories/ContactRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/repositories/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aborem/protestmixv1/repositories/MessageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_add_24_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_close_24_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_green.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_pink.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_orange.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle_purple.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_conversation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_conversation.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_message_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_message_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_message_received.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_message_received.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_message_sent.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_message_sent.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,10 +196,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="482" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.877@0.23.1440.877" timestamp="1592951364829" />
-    <state x="458" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1593201922458">
+    <state x="458" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1593212075056">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="458" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.877@0.23.1440.877" timestamp="1593201922458" />
+    <state x="458" y="215" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.877@0.23.1440.877" timestamp="1593212075056" />
     <state x="308" y="213" key="AndroidCreateResourceDirectoryDialog" timestamp="1592439739554">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -225,22 +212,22 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="575" y="306" key="AndroidCreateXmlResourceDialog/0.23.1440.877@0.23.1440.877" timestamp="1593198172717" />
-    <state width="1398" height="98" key="GridCell.Tab.0.bottom" timestamp="1593203536577">
+    <state width="1398" height="535" key="GridCell.Tab.0.bottom" timestamp="1593213728403">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="98" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1593203536577" />
-    <state width="1398" height="98" key="GridCell.Tab.0.center" timestamp="1593203536573">
+    <state width="1398" height="535" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1593213728403" />
+    <state width="1398" height="535" key="GridCell.Tab.0.center" timestamp="1593213728400">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="98" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1593203536573" />
-    <state width="1398" height="98" key="GridCell.Tab.0.left" timestamp="1593203536572">
+    <state width="1398" height="535" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1593213728400" />
+    <state width="1398" height="535" key="GridCell.Tab.0.left" timestamp="1593213728399">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="98" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1593203536572" />
-    <state width="1398" height="98" key="GridCell.Tab.0.right" timestamp="1593203536573">
+    <state width="1398" height="535" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1593213728399" />
+    <state width="1398" height="535" key="GridCell.Tab.0.right" timestamp="1593213728401">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="98" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1593203536573" />
+    <state width="1398" height="535" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1593213728401" />
     <state x="385" y="208" width="670" height="676" key="search.everywhere.popup" timestamp="1593114664920">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

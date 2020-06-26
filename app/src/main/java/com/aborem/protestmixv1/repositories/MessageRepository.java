@@ -1,6 +1,7 @@
 package com.aborem.protestmixv1.repositories;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -29,7 +30,11 @@ public class MessageRepository {
     }
 
     public void insertAll(MessageModel ... messages) {
-        AppDatabase.databaseWriteExecutor.execute(() -> messageDao.insertAll(messages));
+        Log.d("Repository", "added message! waiting to execute");
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            messageDao.insertAll(messages);
+            Log.d("Repository", "executed!!!");
+        });
     }
 
     public void deleteAll() {
