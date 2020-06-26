@@ -3,12 +3,15 @@ package com.aborem.protestmixv1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
 import com.aborem.protestmixv1.activities.MessageListActivity;
 import com.aborem.protestmixv1.models.ContactModel;
+import com.aborem.protestmixv1.models.MessageModel;
 import com.aborem.protestmixv1.repositories.ContactRepository;
+import com.aborem.protestmixv1.repositories.MessageRepository;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -21,13 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         Button enterButton = findViewById(R.id.enterButton);
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ContactRepository rep = new ContactRepository(getApplication());
-                rep.insert(new ContactModel("+18325609681"));
-                transitionMessageListScreen();
-            }
+        enterButton.setOnClickListener(view -> {
+            MessageRepository messageRepository = new MessageRepository(getApplication(), "+18325609681");
+            messageRepository.deleteAll();
+
+            ContactRepository contactRepository = new ContactRepository(getApplication());
+            contactRepository.deleteAll();
+
+            contactRepository.insert(new ContactModel("+18325609681"));
+            messageRepository.insertAll(new MessageModel("+18325609681", "hellozinhos", SystemClock.currentThreadTimeMillis()));
+            transitionMessageListScreen();
         });
     }
 

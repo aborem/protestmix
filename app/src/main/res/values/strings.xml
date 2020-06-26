@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Protest Mix</string>
     <string name="enter">enter</string>
+    <string name="enter_message">Enter message</string>
+    <string name="send">SEND</string>
+    <string name="user_profile_photo">User profile photo</string>
+    <string name="john_doe">John Doe</string>
+    <string name="howdy">howdy yall how yall doing hello hello hello</string>
+    <string name="_11_30">11:30</string>
 </resources>

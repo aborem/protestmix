@@ -20,4 +20,7 @@ public interface ContactDao {
 
     @Insert
     void insertAll(ContactModel ... contacts);
+
+    @Query("DELETE FROM contacts")
+    void deleteAll();
 }

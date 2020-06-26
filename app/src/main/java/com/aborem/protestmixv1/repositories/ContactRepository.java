@@ -31,4 +31,8 @@ public class ContactRepository {
     public void delete(ContactModel contact) {
         AppDatabase.databaseWriteExecutor.execute(() -> contactDao.delete(contact));
     }
+
+    public void deleteAll() {
+        AppDatabase.databaseWriteExecutor.execute(() -> contactDao.deleteAll());
+    }
 }

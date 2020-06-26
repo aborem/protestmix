@@ -31,4 +31,8 @@ public class MessageRepository {
     public void insertAll(MessageModel ... messages) {
         AppDatabase.databaseWriteExecutor.execute(() -> messageDao.insertAll(messages));
     }
+
+    public void deleteAll() {
+        AppDatabase.databaseWriteExecutor.execute(() -> messageDao.deleteAll());
+    }
 }
