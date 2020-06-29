@@ -32,7 +32,6 @@ To be eventually used as a way to bypass sms snooping.
 - [x] Message forwarding based on indicator.
 - [ ] Creates conversation when new message is received who is not contact.
 - [ ] Uses internal storage to determine who to forward message to. (Might change later when shuffling/forwarding protocols are developed)
-- [ ] 
 
 ### UI Setup
 - [x] Message bubbles (sent + receive).
