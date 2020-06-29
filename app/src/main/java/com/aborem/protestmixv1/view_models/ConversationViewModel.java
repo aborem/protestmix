@@ -25,8 +25,8 @@ public class ConversationViewModel extends AndroidViewModel {
         repository.delete(messageModel);
     }
 
-    public void insertAll(MessageModel ... messageModels) {
-        repository.insertAll(messageModels);
+    public void insert(MessageModel messageModel) {
+        repository.insert(messageModel);
     }
 
     public LiveData<List<MessageModel>> getMessages() {

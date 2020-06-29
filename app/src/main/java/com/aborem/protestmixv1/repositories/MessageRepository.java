@@ -29,11 +29,11 @@ public class MessageRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> messageDao.delete(message));
     }
 
-    public void insertAll(MessageModel ... messages) {
+    public void insert(MessageModel message) {
         Log.d("Repository", "added message! waiting to execute");
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            messageDao.insertAll(messages);
-            Log.d("Repository", "executed!!!");
+            messageDao.insertAll(message);
+            Log.d("Repository", "executed!!! with id " + message.getMessageId() + " and sent by" + message.isSentByUser() + " and number " + message.getPhoneNumber());
         });
     }
 

@@ -45,11 +45,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MessageWrapper messageWrapper = messageWrapperList.get(position);
-        switch (holder.getItemViewType()) {
-            case VIEW_TYPE_MESSAGE_RECEIVED:
-                ((ReceivedMessageHolder) holder).bind(messageWrapper);
-            case VIEW_TYPE_MESSAGE_SENT:
-                ((SentMessageHolder) holder).bind(messageWrapper);
+        if (messageWrapper.isSentByUser()) {
+            ((SentMessageHolder) holder).bind(messageWrapper);
+        } else {
+            ((ReceivedMessageHolder) holder).bind(messageWrapper);
         }
     }
 

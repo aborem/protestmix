@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aborem.protestmixv1.Constants;
 import com.aborem.protestmixv1.R;
 import com.aborem.protestmixv1.adapters.MessageListAdapter;
 import com.aborem.protestmixv1.models.MessageWrapper;
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements LifecycleOwner {
     private static final int READ_SMS_PERMISSIONS_REQUEST = 1;
+    private static final int SEND_SMS_PERMISSIONS_REQUEST = 1;
     private String phoneNumber;
     private MessageListAdapter messagesListAdapter;
     private ConversationViewModel conversationViewModel;
@@ -50,6 +52,7 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
+        getPermissionToSendSMS();
         getPermissionToReadSMS();
 
         Intent intent = getIntent();
@@ -91,22 +94,22 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
     }
 
     /**
-     * Requests read sms permissions from user and displays Toast
+     * Requests send sms permissions from user and displays Toast
      */
-    private void getPermissionToReadSMS() {
-        if (!hasReadSMSPermissions()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
+    private void getPermissionToSendSMS() {
+        if (!hasSendSMSPermissions()) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
                 Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
             }
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, READ_SMS_PERMISSIONS_REQUEST);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSIONS_REQUEST);
         }
     }
 
     /**
-     * Checks if application has permissions to read SMS by checking ContextCompat
+     * Checks if application has permissions to send SMS by checking ContextCompat
      * @return true if has permissions, false otherwise
      */
-    private boolean hasReadSMSPermissions() {
+    private boolean hasSendSMSPermissions() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 == PackageManager.PERMISSION_GRANTED;
     }
@@ -118,13 +121,13 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
      */
     private void sendMessage(MessageModel toSend) {
         SmsManager manager = SmsManager.getDefault();
-        if (!hasReadSMSPermissions()) {
+        if (!hasSendSMSPermissions()) {
             Log.d("sendMessage", "no permissions!");
-            getPermissionToReadSMS();
+            getPermissionToSendSMS();
         } else {
-            manager.sendTextMessage(phoneNumber, null, toSend.getMessageContent(), null, null);
+            sendSMSMessage(manager, phoneNumber, toSend.getMessageContent());
             Log.d("sendMessage", "message being sent!");
-            conversationViewModel.insertAll(toSend);
+            conversationViewModel.insert(toSend);
         }
     }
 
@@ -145,6 +148,40 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
         messageRecyclerView.setAdapter(messagesListAdapter);
         if (messageModels.size() > 0) {
             messageRecyclerView.smoothScrollToPosition(messageModels.size()-1);
+        }
+    }
+
+    private void sendSMSMessage(SmsManager manager, String phoneNumber, String messageContent) {
+        manager.sendTextMessage(
+                phoneNumber,
+                null,
+                Constants.FORWARD_INDICATOR + messageContent,
+                null,
+                null
+        );
+    }
+
+    /**
+     * Checks if application has permissions to read SMS by checking ContextCompat
+     * @return true if has permissions, false otherwise
+     */
+    private boolean hasReadSMSPermissions() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    /**
+     * Requests read sms permissions from user and displays Toast
+     */
+    private void getPermissionToReadSMS() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, READ_SMS_PERMISSIONS_REQUEST);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, READ_SMS_PERMISSIONS_REQUEST);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSIONS_REQUEST);
+        if (!hasReadSMSPermissions()) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
+                Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
