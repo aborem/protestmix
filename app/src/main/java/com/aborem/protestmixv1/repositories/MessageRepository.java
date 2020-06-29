@@ -30,11 +30,7 @@ public class MessageRepository {
     }
 
     public void insert(MessageModel message) {
-        Log.d("Repository", "added message! waiting to execute");
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            messageDao.insertAll(message);
-            Log.d("Repository", "executed!!! with id " + message.getMessageId() + " and sent by" + message.isSentByUser() + " and number " + message.getPhoneNumber());
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> messageDao.insertAll(message));
     }
 
     public void deleteAll() {

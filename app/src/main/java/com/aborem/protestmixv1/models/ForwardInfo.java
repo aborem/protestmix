@@ -26,14 +26,6 @@ public class ForwardInfo {
         this.rowId = UUID.randomUUID().toString();
     }
 
-    public String getForwardToPhoneNumber() {
-        return forwardToPhoneNumber;
-    }
-
-    public long getExpirationTimeMs() {
-        return expirationTimeMs;
-    }
-
     @NonNull
     public String getRowId() {
         return rowId;
@@ -41,5 +33,13 @@ public class ForwardInfo {
 
     public void setRowId(@NonNull String rowId) {
         this.rowId = rowId;
+    }
+
+    public String getForwardToPhoneNumber() {
+        return forwardToPhoneNumber;
+    }
+
+    public long getExpirationTimeMs() {
+        return expirationTimeMs;
     }
 }

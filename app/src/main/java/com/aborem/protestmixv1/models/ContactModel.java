@@ -27,12 +27,12 @@ public class ContactModel {
         return phoneNumber;
     }
 
-    public @NonNull String getContactId() {
-        return contactId;
-    }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public @NonNull String getContactId() {
+        return contactId;
     }
 
     public void setContactId(@NonNull String contactId) {

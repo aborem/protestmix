@@ -19,25 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initViews();
-    }
-
-    private void initViews() {
+        // TODO change to authentication
         Button enterButton = findViewById(R.id.enterButton);
-        enterButton.setOnClickListener(view -> {
-            MessageRepository messageRepository = new MessageRepository(getApplication(), "+18325609681");
-            messageRepository.deleteAll();
-
-            ContactRepository contactRepository = new ContactRepository(getApplication());
-            contactRepository.deleteAll();
-
-            contactRepository.insert(new ContactModel("+18325609681"));
-            transitionMessageListScreen();
-        });
+        enterButton.setOnClickListener(view -> MessageListActivity.start(this));
     }
-
-    private void transitionMessageListScreen() {
-        MessageListActivity.start(this);
-    }
-
 }

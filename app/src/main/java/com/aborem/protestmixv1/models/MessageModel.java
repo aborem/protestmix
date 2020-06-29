@@ -44,40 +44,40 @@ public class MessageModel {
         this.sentByUser = sentByUser;
     }
 
-    public String getMessageContent() {
-        return messageContent;
-    }
-
-    public String getMessageId() {
+    public @NonNull String getMessageId() {
         return messageId;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public long getSentAtMs() {
-        return sentAtMs;
-    }
-
-    public boolean isSentByUser() {
-        return sentByUser;
     }
 
     public void setMessageId(@NonNull String messageId) {
         this.messageId = messageId;
     }
 
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getMessageContent() {
+        return messageContent;
+    }
+
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
+    }
+
+    public long getSentAtMs() {
+        return sentAtMs;
+    }
+
     public void setSentAtMs(long sentAtMs) {
         this.sentAtMs = sentAtMs;
+    }
+
+    public boolean isSentByUser() {
+        return sentByUser;
     }
 
     public void setSentByUser(boolean sentByUser) {

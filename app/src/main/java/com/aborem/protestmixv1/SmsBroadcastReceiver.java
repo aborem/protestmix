@@ -59,6 +59,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                         return;
                     }
                 }
+
                 // Only add message to local db storage if not forwarded
                 MessageModel newMessage = new MessageModel(
                         "5554",
@@ -72,26 +73,4 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
-
-//    /**
-//     * Checks if application has permissions to read SMS by checking ContextCompat
-//     * @return true if has permissions, false otherwise
-//     */
-//    private boolean hasReadSMSPermissions() {
-//        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
-//                == PackageManager.PERMISSION_GRANTED;
-//    }
-
-
-//    /**
-//     * Requests read sms permissions from user and displays Toast
-//     */
-//    private void getPermissionToReadSMS() {
-//        if (!hasReadSMSPermissions()) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS)) {
-//                Toast.makeText(this, "Please allow permission!", Toast.LENGTH_SHORT).show();
-//            }
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, READ_SMS_PERMISSIONS_REQUEST);
-//        }
-//    }
 }

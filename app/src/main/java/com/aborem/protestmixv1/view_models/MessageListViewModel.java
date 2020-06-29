@@ -33,10 +33,18 @@ public class MessageListViewModel extends AndroidViewModel {
         return contacts;
     }
 
+    /**
+     * Checks if contact exists by searching through contacts in database
+     * TODO find more efficient way of doing this with particular query? not sure
+     * @param phoneNumber phone number to find
+     * @return boolean indicating if contact exists (true) or not (false)
+     */
     public boolean contactExists(String phoneNumber) {
-        for (ContactModel contact : getContacts().getValue()) {
-            if (contact.getPhoneNumber().equals(phoneNumber)) {
-                return true;
+        if (getContacts() != null && getContacts().getValue() != null) {
+            for (ContactModel contact : getContacts().getValue()) {
+                if (contact.getPhoneNumber().equals(phoneNumber)) {
+                    return true;
+                }
             }
         }
         return false;

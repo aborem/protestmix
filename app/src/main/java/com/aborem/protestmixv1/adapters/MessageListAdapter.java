@@ -10,20 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aborem.protestmixv1.Constants;
 import com.aborem.protestmixv1.R;
-import com.aborem.protestmixv1.models.MessageWrapper;
+import com.aborem.protestmixv1.models.MessageModelWrapper;
 
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+    private List<MessageModelWrapper> messageModelWrapperList;
 
-    private List<MessageWrapper> messageWrapperList;
-
-    public MessageListAdapter(Context context, List<MessageWrapper> messageWrappers) {
-        this.messageWrapperList = messageWrappers;
+    public MessageListAdapter(Context context, List<MessageModelWrapper> messageModelWrappers) {
+        this.messageModelWrapperList = messageModelWrappers;
     }
 
     @NonNull
@@ -44,18 +42,18 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MessageWrapper messageWrapper = messageWrapperList.get(position);
-        if (messageWrapper.isSentByUser()) {
-            ((SentMessageHolder) holder).bind(messageWrapper);
+        MessageModelWrapper messageModelWrapper = messageModelWrapperList.get(position);
+        if (messageModelWrapper.isSentByUser()) {
+            ((SentMessageHolder) holder).bind(messageModelWrapper);
         } else {
-            ((ReceivedMessageHolder) holder).bind(messageWrapper);
+            ((ReceivedMessageHolder) holder).bind(messageModelWrapper);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        MessageWrapper messageWrapper = messageWrapperList.get(position);
-        if (messageWrapper.isSentByUser()) {
+        MessageModelWrapper messageModelWrapper = messageModelWrapperList.get(position);
+        if (messageModelWrapper.isSentByUser()) {
             return VIEW_TYPE_MESSAGE_SENT;
         }
         return VIEW_TYPE_MESSAGE_RECEIVED;
@@ -63,19 +61,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return messageWrapperList.size();
+        return messageModelWrapperList.size();
     }
 
-    /**
-     * Adds MessageWrapper to messageWrapperList and notifies of data set change
-     * @param messageWrapper the newly added message
-     */
-    public void addItem(MessageWrapper messageWrapper) {
-        messageWrapperList.add(messageWrapper);
-        notifyDataSetChanged();
-    }
+    // - Classes for message view holders
 
-    static class ReceivedMessageHolder extends RecyclerView.ViewHolder {
+    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
         ReceivedMessageHolder(@NonNull View itemView) {
@@ -84,9 +75,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             timeText = itemView.findViewById(R.id.text_message_time);
         }
 
-        void bind(MessageWrapper messageWrapper) {
-            messageText.setText(messageWrapper.getText());
-            timeText.setText(DateFormat.format("hh:mm", messageWrapper.getCreatedAt()));
+        void bind(MessageModelWrapper messageModelWrapper) {
+            messageText.setText(messageModelWrapper.getText());
+            timeText.setText(DateFormat.format("hh:mm", messageModelWrapper.getCreatedAt()));
         }
     }
 
@@ -99,9 +90,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             timeText = itemView.findViewById(R.id.text_message_time);
         }
 
-        void bind(MessageWrapper messageWrapper) {
-            messageText.setText(messageWrapper.getText());
-            timeText.setText(DateFormat.format("hh:mm", messageWrapper.getCreatedAt()));
+        void bind(MessageModelWrapper messageModelWrapper) {
+            messageText.setText(messageModelWrapper.getText());
+            timeText.setText(DateFormat.format("hh:mm", messageModelWrapper.getCreatedAt()));
         }
 
     }

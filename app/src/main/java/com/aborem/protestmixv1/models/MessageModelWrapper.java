@@ -2,10 +2,14 @@ package com.aborem.protestmixv1.models;
 
 import java.util.Date;
 
-public class MessageWrapper {
+/**
+ * Wrapper class for MessageModel so we're not accessing the database object directly
+ * TODO may be superfluous?
+ */
+public class MessageModelWrapper {
     private MessageModel message;
 
-    public MessageWrapper(MessageModel message) {
+    public MessageModelWrapper(MessageModel message) {
         this.message = message;
     }
 
