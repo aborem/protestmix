@@ -29,17 +29,20 @@ To be eventually used as a way to bypass sms snooping.
 ## In Progress and Completed
 
 ### Message Forwarding
-- [x] Message forwarding based on indicator.
 - [ ] Creates conversation when new message is received who is not contact.
 - [ ] Uses internal storage to determine who to forward message to. (Might change later when shuffling/forwarding protocols are developed)
+- [x] Message forwarding based on indicator.
 
 ### UI Setup
+- [ ] Display number of unread messages
+- [ ] Sort contact cards by number of unread messages
 - [x] Message bubbles (sent + receive).
 - [x] Way of displaying contacts.
 - [x] Way of starting conversations.
 - [x] Way of accessing past conversations.
 
-### Storage setup
+### Storage
+- [ ] Finish integration of forwarding table to actually be queried when messages are received.
 - [x] Message table
 - [x] Forwarding table
 - [x] Contacts table
