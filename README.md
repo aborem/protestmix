@@ -29,11 +29,11 @@ To be eventually used as a way to bypass sms snooping.
 ## In Progress and Completed
 
 ### Message Forwarding
-- [ ] Creates conversation when new message is received who is not contact.
-- [ ] Uses internal storage to determine who to forward message to. (Might change later when shuffling/forwarding protocols are developed)
+- [x] Uses internal storage to determine who to forward message to. (Might change later when shuffling/forwarding protocols are developed)
 - [x] Message forwarding based on indicator.
+- [x] Creates conversation when new message is received who is not contact.
 
-### UI Setup
+### UI
 - [ ] Display number of unread messages
 - [ ] Sort contact cards by number of unread messages
 - [x] Message bubbles (sent + receive).
@@ -42,7 +42,7 @@ To be eventually used as a way to bypass sms snooping.
 - [x] Way of accessing past conversations.
 
 ### Storage
-- [ ] Finish integration of forwarding table to actually be queried when messages are received.
+- [x] Finish integration of forwarding table to actually be queried when messages are received.
 - [x] Message table
 - [x] Forwarding table
 - [x] Contacts table
@@ -50,7 +50,9 @@ To be eventually used as a way to bypass sms snooping.
 ---
 
 ## ISSUES
-- [ ] Send button is blank
-- [ ] Phone number formatting is not working properly
-- [ ] More reliable way of storing contacts in messages table (maybe UUID?)
-- [ ] Standardize phone number String formatting
+- [ ] Remove drop shadow around send button
+- [x] Phone number formatting is not working properly
+- [x] More reliable way of storing contacts in messages table (maybe UUID?)
+- [x] Standardize phone number String formatting
+- [x] Send button is blank
+

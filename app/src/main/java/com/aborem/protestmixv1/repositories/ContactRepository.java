@@ -13,6 +13,7 @@ import java.util.List;
 public class ContactRepository {
     private ContactDao contactDao;
     private LiveData<List<ContactModel>> allContacts;
+    private LiveData<Boolean> entryExists;
 
     public ContactRepository(Application application) {
         AppDatabase appDb = AppDatabase.getInstance(application);
@@ -22,6 +23,10 @@ public class ContactRepository {
 
     public LiveData<List<ContactModel>> getAllContacts() {
         return this.allContacts;
+    }
+
+    public LiveData<Boolean> entryExists(String phoneNumber) {
+        return contactDao.entryExists(phoneNumber);
     }
 
     public void insert(ContactModel contact) {

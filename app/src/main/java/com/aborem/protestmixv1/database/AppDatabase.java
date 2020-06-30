@@ -20,9 +20,8 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {MessageModel.class, ForwardInfo.class, ContactModel.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase instance;
-
     private static final int NUMBER_OF_THREADS = 4;
+    private static AppDatabase instance;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 

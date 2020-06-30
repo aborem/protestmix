@@ -45,10 +45,13 @@
         android:maxLines="6"/>
 
     <Button android:id="@+id/button_chatbox_send"
-        android:layout_width="64dp"
+        android:layout_width="48dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
         android:layout_height="48dp"
         android:text="@string/send"
         android:textSize="10sp"
+        android:textColor="@color/colorPrimary"
         android:backgroundTint="#ffffff"
         android:clickable="true"
         android:gravity="center"

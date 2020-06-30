@@ -23,4 +23,7 @@ public interface ContactDao {
 
     @Query("DELETE FROM contacts")
     void deleteAll();
+
+    @Query("SELECT COUNT(1) FROM contacts WHERE phone_number = (:phoneNumber)")
+    LiveData<Boolean> entryExists(String phoneNumber);
 }

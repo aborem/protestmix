@@ -6,31 +6,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
-import android.text.TextUtils;
+import android.text.Editable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aborem.protestmixv1.Constants;
 import com.aborem.protestmixv1.R;
 import com.aborem.protestmixv1.adapters.ChatAdapter;
 import com.aborem.protestmixv1.models.ContactModel;
-import com.aborem.protestmixv1.repositories.MessageRepository;
+import com.aborem.protestmixv1.util.ProtestMixUtil;
 import com.aborem.protestmixv1.view_models.MessageListViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MessageListActivity extends AppCompatActivity {
     private MessageListViewModel messageListViewModel;
@@ -51,12 +47,7 @@ public class MessageListActivity extends AppCompatActivity {
 
         // Adds action to + button
         FloatingActionButton buttonAddNote = findViewById(R.id.add_conversation_button);
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAddItemDialog(view.getContext());
-            }
-        });
+        buttonAddNote.setOnClickListener(view -> showAddItemDialog(view.getContext()));
 
         // Observes for changes of contacts
         messageListViewModel = new ViewModelProvider(this).get(MessageListViewModel.class);
@@ -81,32 +72,27 @@ public class MessageListActivity extends AppCompatActivity {
     }
 
     /**
-     * UNUSED Cleans phone number using regex
-     * @param rawPhoneNumber the phone number pre formatted
-     * @return the phone number formatted
-     */
-    private String cleanPhoneNumber(String rawPhoneNumber) {
-        Matcher m = Pattern.compile(Constants.REGEX_CLEAN_NUMBER).matcher(rawPhoneNumber);
-        List<String> matches = new ArrayList<>();
-        while (m.find()) {
-            matches.add(m.group());
-        }
-        return TextUtils.join("", matches);
-    }
-
-    /**
      * Creates view for and displays dialog box for new phone number
      * @param c the context in which the dialog should be displayed
      */
     private void showAddItemDialog(Context c) {
         final EditText taskEditText = new EditText(c);
         taskEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        taskEditText.setOnKeyListener((view, i, keyEvent) -> {
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                && i == KeyEvent.KEYCODE_ENTER) {
+                positiveButtonDialogAction(taskEditText.getText());
+                return true;
+            }
+            return false;
+        });
         taskEditText.setMaxLines(1);
         new MaterialAlertDialogBuilder(c)
                 .setTitle("Start a conversation")
                 .setView(taskEditText)
                 .setPositiveButton("Create", ((dialogInterface, i) ->
-                        positiveButtonDialogAction(taskEditText)))
+                        positiveButtonDialogAction(taskEditText.getText()))
+                )
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
@@ -115,15 +101,10 @@ public class MessageListActivity extends AppCompatActivity {
     /**
      * Function called when positive/confirm button is clicked in dialog box to create new
      * conversation
-     * @param taskEditText the edit text entry for the phone number
+     * @param editTextContent the editable text in the edit text element
      */
-    private void positiveButtonDialogAction(EditText taskEditText) {
-        String phoneNumber = String.valueOf(taskEditText.getText());
-        if (!Pattern.compile(Constants.REGEX_PHONE_NUMBER).matcher(phoneNumber).matches()) {
-            Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT)
-                    .show();
-            return;
-        }
+    private void positiveButtonDialogAction(Editable editTextContent) {
+        String phoneNumber = ProtestMixUtil.formatPhoneNumber(String.valueOf(editTextContent));
         Log.d("matching phonenumber", phoneNumber);
         if (messageListViewModel.contactExists(phoneNumber)) {
             Toast.makeText(this, "Conversation already exists", Toast.LENGTH_SHORT)
