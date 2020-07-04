@@ -58,8 +58,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         public void bind(final ContactModel chat) {
             textViewPhoneNumber.setText(chat.getPhoneNumber());
-            // todo below: figure out how to get number of unread messages from this. Probably have to store that in the contacts table somehow
-            textViewUnreadMessages.setText("");
+            String unreadMessageCount = "";
+            if (chat.getUnreadMessageCount() > 0) {
+                unreadMessageCount = Integer.toString(chat.getUnreadMessageCount());
+            }
+            textViewUnreadMessages.setText(unreadMessageCount);
             cardViewRelativeLayout.setOnClickListener(view -> {
                 ConversationActivity.start(context, chat.getContactId(), chat.getPhoneNumber());
             });

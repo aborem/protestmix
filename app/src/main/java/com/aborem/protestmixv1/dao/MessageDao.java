@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.aborem.protestmixv1.models.MessageModel;
 
@@ -23,4 +24,7 @@ public interface MessageDao {
 
     @Insert
     void insertAll(MessageModel ... messages);
+
+    @Update
+    void update(MessageModel message);
 }

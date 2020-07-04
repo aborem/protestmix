@@ -17,8 +17,8 @@ public class ConversationViewModel extends AndroidViewModel {
 
     public ConversationViewModel(@NonNull Application application, String phoneNumber) {
         super(application);
-        this.repository = new MessageRepository(application, phoneNumber);
-        this.messages = repository.getMessagesForConversation();
+        this.repository = new MessageRepository(application);
+        this.messages = repository.getMessagesForConversation(phoneNumber);
     }
 
     public void delete(MessageModel messageModel) {

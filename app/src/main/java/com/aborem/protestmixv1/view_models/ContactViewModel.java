@@ -8,25 +8,30 @@ import androidx.lifecycle.LiveData;
 
 import com.aborem.protestmixv1.models.ContactModel;
 import com.aborem.protestmixv1.repositories.ContactRepository;
+import com.aborem.protestmixv1.util.ContactUpdateAction;
 
 import java.util.List;
 
-public class MessageListViewModel extends AndroidViewModel {
-    private ContactRepository repository;
+public class ContactViewModel extends AndroidViewModel {
+    private ContactRepository contactRepository;
     private LiveData<List<ContactModel>> contacts;
 
-    public MessageListViewModel(@NonNull Application application) {
+    public ContactViewModel(@NonNull Application application) {
         super(application);
-        this.repository = new ContactRepository(application);
-        this.contacts = repository.getAllContacts();
+        this.contactRepository = new ContactRepository(application);
+        this.contacts = contactRepository.getAllContacts();
     }
 
     public void insert(ContactModel contact) {
-        repository.insert(contact);
+        contactRepository.insertOrUpdateUnreadMessageCount(contact, ContactUpdateAction.NOCHANGE);
     }
 
     public void delete(ContactModel contact) {
-        repository.delete(contact);
+        contactRepository.delete(contact);
+    }
+
+    public void deleteAll() {
+        contactRepository.deleteAll();
     }
 
     public LiveData<List<ContactModel>> getContacts() {

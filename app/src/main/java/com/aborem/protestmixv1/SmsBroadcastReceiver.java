@@ -7,16 +7,12 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
-import com.aborem.protestmixv1.database.AppDatabase;
 import com.aborem.protestmixv1.models.ContactModel;
-import com.aborem.protestmixv1.models.ForwardInfo;
 import com.aborem.protestmixv1.models.MessageModel;
 import com.aborem.protestmixv1.repositories.ContactRepository;
-import com.aborem.protestmixv1.repositories.ForwardInfoRepository;
 import com.aborem.protestmixv1.repositories.MessageRepository;
+import com.aborem.protestmixv1.util.ContactUpdateAction;
 import com.aborem.protestmixv1.util.ProtestMixUtil;
-
-import java.util.List;
 
 public class SmsBroadcastReceiver extends BroadcastReceiver {
     /**
@@ -25,23 +21,19 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
      * @return a boolean indicating if the forwarding was successful
      */
     private boolean forwardMessage(String messageContent) {
-        ForwardInfoRepository repository = new ForwardInfoRepository(ApplicationWrapper.getApplication());
-        List<ForwardInfo> forwardInfoList = repository.getAllForwardContacts().getValue();
-        if (forwardInfoList != null && !forwardInfoList.isEmpty()) {
-            // first entry will be most up to date
-            ForwardInfo forwardInfoRow = forwardInfoList.get(0);
-            SmsManager smsManager = SmsManager.getDefault();
-            String fixedMessageContent = messageContent.substring(Constants.FORWARD_INDICATOR_LENGTH);
-            smsManager.sendTextMessage(
-                    forwardInfoRow.getForwardToPhoneNumber(),
-                    null,
-                    fixedMessageContent,
-                    null,
-                    null
-            );
-            return true;
-        }
-        return false;
+        // todo find better system for getting phone number
+        String phoneNumber = "5556";
+        // first entry will be most up to date
+        SmsManager smsManager = SmsManager.getDefault();
+        String fixedMessageContent = messageContent.substring(Constants.FORWARD_INDICATOR_LENGTH);
+        smsManager.sendTextMessage(
+                phoneNumber,
+                null,
+                fixedMessageContent,
+                null,
+                null
+        );
+        return true;
     }
 
     @Override
@@ -60,26 +52,25 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     long messageSentAtMs = smsMessage.getTimestampMillis();
                     if (messageContent.startsWith(Constants.FORWARD_INDICATOR)) {
                         boolean forwardMessageSuccess = forwardMessage(messageContent);
-                        if (!forwardMessageSuccess) {
-                            // todo do something if failed?
+                        if (forwardMessageSuccess) {
                             abortBroadcast();
                             return;
                         }
                     }
 
+                    // If did not have forwarding info or forwarding failed, receives sms as is
                     ContactRepository contactRepository = new ContactRepository(ApplicationWrapper.getApplication());
-                    Boolean senderInRecords = contactRepository.entryExists(senderPhoneNumber).getValue();
-                    if (senderInRecords != null) {
-                        contactRepository.insert(new ContactModel(senderPhoneNumber));
-                    }
+                    contactRepository.insertOrUpdateUnreadMessageCount(
+                            new ContactModel(senderPhoneNumber, 1, messageSentAtMs),
+                            ContactUpdateAction.INCREMENT
+                    );
 
                     // Only add message to local db storage if not forwarded
                     MessageModel newMessage = new MessageModel(
                             senderPhoneNumber, messageContent, messageSentAtMs, false
                     );
-                    MessageRepository messageRepository = new MessageRepository(
-                            ApplicationWrapper.getApplication(), senderPhoneNumber
-                    );
+                    MessageRepository messageRepository =
+                            new MessageRepository(ApplicationWrapper.getApplication());
                     messageRepository.insert(newMessage);
 
                     abortBroadcast();

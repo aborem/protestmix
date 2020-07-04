@@ -7,4 +7,9 @@
     <string name="john_doe">John Doe</string>
     <string name="howdy">howdy yall how yall doing hello hello hello</string>
     <string name="_11_30">11:30</string>
+    <string name="panic">PANIC</string>
+    <string name="load_contacts">Add Contacts</string>
+    <string name="enter_secret">secret</string>
+    <string name="phone_number">New contact</string>
+    <string name="add_contact">add</string>
 </resources>

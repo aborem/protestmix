@@ -16,7 +16,7 @@ public class ApplicationWrapper extends Application {
         super.onCreate();
         ApplicationWrapper.application = this;
 
-        MessageRepository messageRepository = new MessageRepository(getApplication(), "+18325609681");
+        MessageRepository messageRepository = new MessageRepository(getApplication());
         messageRepository.deleteAll();
 
         ContactRepository contactRepository = new ContactRepository(getApplication());

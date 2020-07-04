@@ -16,15 +16,22 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aborem.protestmixv1.Constants;
+import com.aborem.protestmixv1.MainActivity;
 import com.aborem.protestmixv1.R;
 import com.aborem.protestmixv1.adapters.MessageListAdapter;
+import com.aborem.protestmixv1.models.ContactModel;
 import com.aborem.protestmixv1.models.MessageModelWrapper;
 import com.aborem.protestmixv1.models.MessageModel;
+import com.aborem.protestmixv1.repositories.ContactRepository;
+import com.aborem.protestmixv1.util.ContactUpdateAction;
+import com.aborem.protestmixv1.util.ProtestMixUtil;
 import com.aborem.protestmixv1.view_models.ConversationViewModel;
 import com.aborem.protestmixv1.view_models.ConversationViewModelFactory;
 
@@ -39,6 +46,7 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
     private MessageListAdapter messagesListAdapter;
     private ConversationViewModel conversationViewModel;
     private RecyclerView messageRecyclerView;
+    private ContactRepository contactRepository;
 
     public static void start(Context context, String chatId, String phoneNumber) {
         Intent starter = new Intent(context, ConversationActivity.class);
@@ -61,17 +69,16 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
 
         messageRecyclerView = findViewById(R.id.recycler_message_list);
 
-        ConversationViewModelFactory factory = new ConversationViewModelFactory(getApplication(), phoneNumber);
+        ConversationViewModelFactory factory =
+                new ConversationViewModelFactory(getApplication(), phoneNumber);
         conversationViewModel = new ViewModelProvider(this, factory).get(ConversationViewModel.class);
         conversationViewModel.getMessages().observe(this, messageModels ->
                 observeMessageLiveData(this, messageModels)
         );
 
-        // call for first time to prepopulate todo figure out if necessary
-//        List<MessageModel> prePopulatedMessages = conversationViewModel.getMessages().getValue();
-//        if (prePopulatedMessages != null) {
-//            observeMessageLiveData(this, prePopulatedMessages);
-//        }
+        // Clear out unread messages
+        contactRepository = new ContactRepository(getApplication());
+        contactRepository.insertOrUpdateUnreadMessageCount(new ContactModel(phoneNumber, 0), ContactUpdateAction.CLEAR);
 
         EditText textChatBox = findViewById(R.id.edit_text_chatbox);
         Button sendButton = findViewById(R.id.button_chatbox_send);
@@ -79,6 +86,26 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
             sendMessage(new MessageModel(phoneNumber, textChatBox.getText().toString(), new Date().getTime(), true));
             textChatBox.setText("");
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_default, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_clear_all_data) {
+            ProtestMixUtil.clearAllData(getApplication());
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -106,6 +133,7 @@ public class ConversationActivity extends AppCompatActivity implements Lifecycle
             sendSMSMessage(manager, phoneNumber, toSend.getMessageContent());
             Log.d("sendMessage", "message being sent!");
             conversationViewModel.insert(toSend);
+            contactRepository.updateLastMessageTimeMs(phoneNumber, System.currentTimeMillis());
         }
     }
 

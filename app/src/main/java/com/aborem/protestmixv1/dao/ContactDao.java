@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.aborem.protestmixv1.models.ContactModel;
 
@@ -18,12 +20,18 @@ public interface ContactDao {
     @Delete
     void delete(ContactModel contact);
 
-    @Insert
-    void insertAll(ContactModel ... contacts);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(ContactModel contact);
 
     @Query("DELETE FROM contacts")
     void deleteAll();
 
-    @Query("SELECT COUNT(1) FROM contacts WHERE phone_number = (:phoneNumber)")
-    LiveData<Boolean> entryExists(String phoneNumber);
+    @Query("SELECT * FROM contacts WHERE phone_number = (:phoneNumber)")
+    List<ContactModel> retrieveEntry(String phoneNumber);
+
+    @Update
+    void update(ContactModel contactModel);
+
+    @Query("UPDATE contacts SET unread_message_count = (:unreadMessageCount) WHERE phone_number = (:phoneNumber)")
+    void updateMessageCount(int unreadMessageCount, String phoneNumber);
 }

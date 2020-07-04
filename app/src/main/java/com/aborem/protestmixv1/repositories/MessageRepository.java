@@ -1,7 +1,6 @@
 package com.aborem.protestmixv1.repositories;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -15,14 +14,14 @@ public class MessageRepository {
     private MessageDao messageDao;
     private LiveData<List<MessageModel>> messagesForConversation;
 
-    public MessageRepository(Application application, String phoneNumber) {
+    public MessageRepository(Application application) {
         AppDatabase appDb = AppDatabase.getInstance(application);
         this.messageDao = appDb.messageDao();
-        this.messagesForConversation = messageDao.getMessagesFrom(phoneNumber);
     }
 
-    public LiveData<List<MessageModel>> getMessagesForConversation() {
-        return this.messagesForConversation;
+    public LiveData<List<MessageModel>> getMessagesForConversation(String phoneNumber) {
+        messagesForConversation = messageDao.getMessagesFrom(phoneNumber);
+        return messagesForConversation;
     }
 
     public void delete(MessageModel message) {
