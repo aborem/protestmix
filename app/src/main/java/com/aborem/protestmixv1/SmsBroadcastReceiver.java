@@ -54,8 +54,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     String senderPhoneNumber =
                             ProtestMixUtil.formatPhoneNumber(smsMessage.getOriginatingAddress());
                     String messageContent = smsMessage.getMessageBody();
-
                     long messageSentAtMs = smsMessage.getTimestampMillis();
+
                     if (messageContent.startsWith(Constants.FORWARD_INDICATOR)) {
                         boolean forwardMessageSuccess = forwardMessage(messageContent);
                         if (forwardMessageSuccess) {

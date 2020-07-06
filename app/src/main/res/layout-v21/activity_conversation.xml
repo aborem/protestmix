@@ -50,6 +50,7 @@
         android:paddingEnd="0dp"
         android:layout_height="48dp"
         android:text="@string/send"
+        style="?android:attr/borderlessButtonStyle"
         android:textSize="10sp"
         android:textColor="@color/colorPrimary"
         android:backgroundTint="#ffffff"

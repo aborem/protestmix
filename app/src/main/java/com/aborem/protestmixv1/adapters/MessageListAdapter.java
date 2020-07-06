@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aborem.protestmixv1.R;
 import com.aborem.protestmixv1.models.MessageModelWrapper;
 
+import java.util.Date;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

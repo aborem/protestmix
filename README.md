@@ -37,8 +37,7 @@ To be eventually used as a way to bypass sms snooping.
 - [x] Creates conversation when new message is received who is not contact.
 
 ### UI
-- [ ] Add navigation between activities
-- [ ] Remove drop shadow around send button
+- [x] Remove drop shadow around send button
 - [x] Sort contact cards by most recently received message (currently sorts by number of unread messages)
 - [x] Display number of unread messages
 - [x] Message bubbles (sent + receive).
@@ -48,9 +47,8 @@ To be eventually used as a way to bypass sms snooping.
 - [x] **ISSUE** Send button is blank
 
 ### Storage
-- [ ] **ISSUE** message timestamps are off
-- [ ] Have primary key for contacts be deterministic based on phone number
-- [ ] Find better system for storing forward phone number (maybe local file storage)
+- [x] Message timestamps are off - removed milisecond multiplication by 1000
+- [x] Find better system for storing forward phone number (maybe local file storage)
 - [x] Delete all stored data button (panic button?)
 - [x] Finish integration of forwarding table to actually be queried when messages are received.
 - [x] More reliable way of storing contacts in messages table (maybe UUID?)

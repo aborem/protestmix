@@ -26,7 +26,7 @@ public class MessageModelWrapper {
     }
 
     public Date getCreatedAt() {
-        return new Date(message.getSentAtMs() * 1000);
+        return new Date(message.getSentAtMs());
     }
 
     public boolean isSentByUser() {
