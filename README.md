@@ -2,21 +2,19 @@
 
 To be eventually used as a way to bypass sms snooping.
 
-## App Navigation
+## App Navigation and Screens
+
+Authentication | Conversation Selector | Conversation
+:---: | :---: | :---:
+![Authentication Screen Screenshot](screenshots/authentication.png) | ![Conversation Selector Screen Screenshot](screenshots/conversation_selector.png) | ![Conversation Screen Screenshot](screenshots/conversation.png)
 
 ### Authentication Screen
-![Authentication Screen Screenshot](screenshots/authentication.png)
-
 Here the user can add contacts (which, at the moment, adds them not only as contacts the user can chat with but also prepopulates a list of phone numbers the user's app will forward messages to, if indicated in the sms received). Authentication is not checking for anything at the moment.
 
 ### Conversation Selector Screen
-![Conversation Selector Screen Screenshot](screenshots/conversation_selector.png)
-
 Here the user can create new conversations or enter new ones. Each conversation has a (slightly buggy) indicator of number of unread messages.
 
 ### Conversation Screen
-![Conversation Screen Screenshot](screenshots/conversation.png)
-
 Here the user can send and receive messages with the given contact. The app sends an sms to the provided phone number with a special indicator that that app should check it's local records and forward the message as appropriate. When app receives sms message with indicator, it does not load it onto this conversation screen and simply forwards the message instead.
 
 Note **Panic** button which deletes all data in the app and goes to authentication screen. Accessible anywhere in the app.
