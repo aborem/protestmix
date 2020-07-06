@@ -6,6 +6,7 @@ import android.telephony.PhoneNumberUtils;
 
 import com.aborem.protestmixv1.repositories.ContactRepository;
 import com.aborem.protestmixv1.repositories.ForwardInfoRepository;
+import com.aborem.protestmixv1.repositories.ForwardInfoStorageRepository;
 import com.aborem.protestmixv1.repositories.MessageRepository;
 
 import java.util.Locale;
@@ -59,6 +60,11 @@ public class ProtestMixUtil {
     public static void clearForwardInfo(Application application) {
         ForwardInfoRepository forwardInfoRepository = new ForwardInfoRepository(application);
         forwardInfoRepository.deleteAll();
+
+        ForwardInfoStorageRepository forwardInfoStorageRepository =
+                new ForwardInfoStorageRepository(application.getApplicationContext());
+        forwardInfoRepository.deleteAll();
+
     }
 
 }

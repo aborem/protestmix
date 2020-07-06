@@ -30,7 +30,7 @@ public class ForwardInfoStorageRepository {
      */
     public boolean addForwardPhoneNumber(String phoneNumber) {
         try {
-            FileOutputStream fos = context.openFileOutput(getFileName(), Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fos.write((phoneNumber + "\n").getBytes());
             return true;
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class ForwardInfoStorageRepository {
      */
     public String getMostRecentForwardPhoneNumber() {
         try {
-            FileInputStream fis = context.openFileInput(getFileName());
+            FileInputStream fis = context.openFileInput(FILENAME);
             BufferedReader reader;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8));
@@ -66,8 +66,12 @@ public class ForwardInfoStorageRepository {
         return "";
     }
 
+    public void deleteAll() {
+        context.deleteFile(getFileName());
+    }
+
     /**
-     * Cleans file name by getting app directory
+     * Cleans file name by getting app directory. Maybe unnecessary?
      * @return the cleaned file name where phone numbers are stored
      */
     private String getFileName() {

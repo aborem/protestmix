@@ -2,7 +2,26 @@
 
 To be eventually used as a way to bypass sms snooping.
 
-## Next Steps
+## App Navigation
+
+### Authentication Screen
+![Authentication Screen Screenshot](screenshots/authentication.png)
+
+Here the user can add contacts (which, at the moment, adds them not only as contacts the user can chat with but also prepopulates a list of phone numbers the user's app will forward messages to, if indicated in the sms received). Authentication is not checking for anything at the moment.
+
+### Conversation Selector Screen
+![Conversation Selector Screen Screenshot](screenshots/conversation_selector.png)
+
+Here the user can create new conversations or enter new ones. Each conversation has a (slightly buggy) indicator of number of unread messages.
+
+### Conversation Screen
+![Conversation Screen Screenshot](screenshots/conversation.png)
+
+Here the user can send and receive messages with the given contact. The app sends an sms to the provided phone number with a special indicator that that app should check it's local records and forward the message as appropriate. When app receives sms message with indicator, it does not load it onto this conversation screen and simply forwards the message instead.
+
+Note **Panic** button which deletes all data in the app and goes to authentication screen. Accessible anywhere in the app.
+
+## Next Steps, Ideas, and Thoughts
 
 ### Authentication
 - How will users sign on? (My guess is local authentication with encrypted local db of user keys). Maybe there could be some sort of setup to create a new demonstration where you load everyone else's contact info into your phone and are assigned ids for that! Then local encrypted storage.
@@ -18,6 +37,7 @@ To be eventually used as a way to bypass sms snooping.
 ### Message Forwarding Protocol
 - How will nodes know who to send messages to? Who will keep track of what information?
 - How will the receiver know who sent the original message?
+- Possible that your phone is the one you want to chat with. Special consideration to avoid sending sms to self?
 
 ### Encryption + Other failsaifs + ideas
 - Clearing tables through abort button (?) and on app close/quit/startup (maybe we don't want to do this?)
