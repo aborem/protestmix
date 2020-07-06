@@ -23,6 +23,7 @@ import com.aborem.protestmixv1.models.ContactModel;
 import com.aborem.protestmixv1.models.ForwardInfo;
 import com.aborem.protestmixv1.repositories.ContactRepository;
 import com.aborem.protestmixv1.repositories.ForwardInfoRepository;
+import com.aborem.protestmixv1.repositories.ForwardInfoStorageRepository;
 import com.aborem.protestmixv1.util.ProtestMixUtil;
 import com.aborem.protestmixv1.view_models.ContactViewModel;
 import com.aborem.protestmixv1.view_models.ConversationViewModel;
@@ -82,11 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 ContactModel newContact = new ContactModel(phoneNumber, 0);
                 contactViewModel.insert(newContact);
 
-                ForwardInfoRepository forwardInfoRepository = new ForwardInfoRepository(getApplication());
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(new Date());
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-                forwardInfoRepository.insert(new ForwardInfo(phoneNumber, calendar.getTimeInMillis()));
+                ForwardInfoStorageRepository forwardInfo = new ForwardInfoStorageRepository(context);
+                forwardInfo.addForwardPhoneNumber(phoneNumber);
             }
         }
     }

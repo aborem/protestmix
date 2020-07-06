@@ -10,6 +10,7 @@ import android.telephony.SmsMessage;
 import com.aborem.protestmixv1.models.ContactModel;
 import com.aborem.protestmixv1.models.MessageModel;
 import com.aborem.protestmixv1.repositories.ContactRepository;
+import com.aborem.protestmixv1.repositories.ForwardInfoStorageRepository;
 import com.aborem.protestmixv1.repositories.MessageRepository;
 import com.aborem.protestmixv1.util.ContactUpdateAction;
 import com.aborem.protestmixv1.util.ProtestMixUtil;
@@ -22,18 +23,23 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
      */
     private boolean forwardMessage(String messageContent) {
         // todo find better system for getting phone number
-        String phoneNumber = "5556";
-        // first entry will be most up to date
-        SmsManager smsManager = SmsManager.getDefault();
-        String fixedMessageContent = messageContent.substring(Constants.FORWARD_INDICATOR_LENGTH);
-        smsManager.sendTextMessage(
-                phoneNumber,
-                null,
-                fixedMessageContent,
-                null,
-                null
-        );
-        return true;
+        ForwardInfoStorageRepository forwardInfo =
+                new ForwardInfoStorageRepository(ApplicationWrapper.getApplication().getApplicationContext());
+        String phoneNumber = forwardInfo.getMostRecentForwardPhoneNumber();
+        if (!phoneNumber.isEmpty()) {
+            // first entry will be most up to date
+            SmsManager smsManager = SmsManager.getDefault();
+            String fixedMessageContent = messageContent.substring(Constants.FORWARD_INDICATOR_LENGTH);
+            smsManager.sendTextMessage(
+                    phoneNumber,
+                    null,
+                    fixedMessageContent,
+                    null,
+                    null
+            );
+            return true;
+        }
+        return false;
     }
 
     @Override
